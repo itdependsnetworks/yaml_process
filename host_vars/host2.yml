@@ -1,0 +1,25 @@
+portchannels:
+  - <<: *portchannel
+    vpc_id: 31
+    description: unity1
+    members:
+      - Ethernet4/11
+    switchport:
+      <<: *switchport_trunk
+      vlans_allowed:
+        - 3605
+        - 3607
+  - <<: *portchannel
+    vpc_id: 32
+    description: unity2
+    members:
+      - Ethernet4/12
+    switchport:
+      <<: *switchport_trunk
+
+interfaces:
+  - description: server2
+    name: Ethernet4/13
+    switchport:
+      <<: *switchport_access
+      vlan: 105
