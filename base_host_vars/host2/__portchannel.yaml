@@ -1,0 +1,3 @@
+portchannel: &portchannel
+  channel_group_mode: active
+  mtu: 9216

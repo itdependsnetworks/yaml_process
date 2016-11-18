@@ -1,0 +1,9 @@
+switchport_trunk: &switchport_trunk
+  type: switchport
+  mode: trunk
+  trunk:
+    native_vlan: 5
+  vlans_allowed:
+    - all
+  spanning-tree:
+    port_type: edge trunk

@@ -1,0 +1,33 @@
+---
+
+  - name: ASSEMBLE CONFIGS
+    connection: local
+    gather_facts: no
+    hosts: all
+
+    tasks:
+
+      - name: ENSURE DIRs created per device
+        file: 
+          path: "base_host_vars/{{ inventory_hostname }}/"
+          state: "directory"
+        tags: mkdir  
+
+      - name: COPY HOST VARS
+        template: 
+          src: "vars/{{ inventory_hostname }}.yml"
+          dest: "base_host_vars/{{ inventory_hostname }}"
+        #with_ite:
+        #  - "vars/{{ }}"
+
+      - name: COPY STANDARDS
+        template: 
+          src: "{{ item }}"
+          dest: "base_host_vars/{{ inventory_hostname }}"
+        with_fileglob:
+          - "standards/*"
+
+      - name: ASSEMBLE PARTIAL CONFIGS 
+        assemble: 
+          src: "base_host_vars/{{ inventory_hostname }}"
+          dest: "host_vars/{{ inventory_hostname}}.yml"
